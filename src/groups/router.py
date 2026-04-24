@@ -16,10 +16,6 @@ async def create_group(access_token: Annotated[str, Body()], session: SessionDep
     print(access_token)
     user = await auth_service.api_auth(access_token, session)
 
-    print(f"Received token: {access_token}")
-    print(f"Token type: {type(access_token)}")
-    print(f"Token length: {len(access_token)}")
-
     if not user:
         raise authentication_exception
     

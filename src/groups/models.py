@@ -7,6 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 
 from ..models import Base
+from src.associations import group_members
 
 
 if typing.TYPE_CHECKING:
@@ -21,23 +22,7 @@ class Group(Base):
 
     id:             Mapped[int]                 = mapped_column(primary_key=True)
     name:           Mapped[str]                 = mapped_column(String(30))
-    owner_id                                    = mapped_column(ForeignKey("memberships.id"))
-
-    members:        Mapped[List["Membership"]]  = relationship("Membership", foreign_keys="[Membership.group_id]", back_populates="group")
+    owner_id                                    = mapped_column(ForeignKey("users.id"))
     
+    members:        Mapped[List["User"]]        = relationship("User", secondary=group_members, back_populates="groups_in")
 
-class Membership(Base):
-
-    __tablename__ = "memberships"
-    
-
-    id:             Mapped[int]         = mapped_column(primary_key=True)
-    is_admin:       Mapped[bool]            
-
-    user_id                             = mapped_column(ForeignKey("users.id"))
-    user:           Mapped["User"]      = relationship("User", back_populates="group_memberships")
-
-    group_id                            = mapped_column(ForeignKey("groups.id"))
-    group :         Mapped["Group"]     = relationship("Group", foreign_keys=[group_id], back_populates="members")
-
-    
