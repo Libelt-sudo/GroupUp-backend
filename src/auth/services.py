@@ -2,7 +2,9 @@ from datetime import datetime, timedelta, timezone
 
 from fastapi import HTTPException, status
 
-from .models import User, RefeshToken
+from .models import RefeshToken
+from ..models import User
+
 from .schemas import UserCreate, Token, TokenData
 from ..config import settings
 

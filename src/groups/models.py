@@ -6,12 +6,12 @@ from typing import List, Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 
-from ..models import Base
-from src.associations import group_members
+from ..models import Base, group_members
+# from src.associations import group_members
 
 
 if typing.TYPE_CHECKING:
-    from ..auth.models import User
+    from ..models import User
 
 
 
