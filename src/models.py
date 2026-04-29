@@ -38,3 +38,6 @@ class User(Base):
 
     groups_in:          Mapped[List["Group"]]       = relationship("Group", secondary=group_members, back_populates="members")
 
+
+    def __repr__(self):
+        return f"user_id:{self.id} -> {self.username}"
